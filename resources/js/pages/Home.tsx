@@ -50,13 +50,10 @@ export default function Home({ products }: Props) {
                                 <a className="nav-link active" aria-current="page" href="#">Home</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">About</a>
+                                <a className="nav-link" href="#product">Services</a>
                             </li>
                             <li className="nav-item">
-                                <a className="nav-link" href="#">Services</a>
-                            </li>
-                            <li className="nav-item">
-                                <a className="nav-link" href="#">Contact</a>
+                                <a className="nav-link" href="#contact">Contact</a>
                             </li>
                         </ul>
                         <form className="d-flex">
@@ -75,7 +72,14 @@ export default function Home({ products }: Props) {
                             <p className="lead">Dari semen hingga pipa, dari cat hingga pasir, semua tersedia dengan harga terbaik dan
                                 pengiriman cepat!</p>
                             <a href="#contact" className="btn btn-primary btn-lg me-2" style={{ backgroundColor: '#FF0B55', borderColor: '#FF0B55' }}><i className="bi bi-whatsapp me-2"></i>Hubungi Kami</a>
-                            <a href="#features" className="btn btn-outline-primary btn-lg" style={{ color: '#FF0B55', borderColor: '#FF0B55' }}>Lihat Produk</a>
+                            <a href="#product" className="btn btn-outline-primary btn-lg" style={{ color: '#FF0B55', borderColor: '#FF0B55' }} onMouseEnter={(e) => {
+                                e.currentTarget.style.backgroundColor = '#FF0B55';
+                                e.currentTarget.style.color = 'white';
+                            }}
+                                onMouseLeave={(e) => {
+                                    e.currentTarget.style.backgroundColor = 'transparent';
+                                    e.currentTarget.style.color = '#FF0B55';
+                                }}>Lihat Produk</a>
                         </div>
                         <div className="col-lg-6 py-4">
                             <img src="assets/Hero.jpg" alt="Toko Material" className="img-fluid rounded" />
@@ -85,7 +89,7 @@ export default function Home({ products }: Props) {
             </header>
 
             {/* Features Section */}
-            <section className="py-5" id="fitur">
+            <section className="py-5" id="product">
                 <div className="container">
                     <div className="text-center mb-5">
                         <h2 className="fw-bold">Kenapa Memilih Kami?</h2>
@@ -144,8 +148,7 @@ export default function Home({ products }: Props) {
             </section>
 
             {/* Contact Section */}
-            <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
-            <div className="container my-5">
+            <div id='contact' className="container my-5">
                 <h1 className="text-center mb-4" id="kontak">Hubungi Kami</h1>
                 <div className="row">
                     <div className="col-md-6">
