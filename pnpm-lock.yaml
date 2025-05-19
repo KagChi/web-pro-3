@@ -40,8 +40,8 @@ importers:
         specifier: 15.2.2
         version: 15.2.2(@stylistic/eslint-plugin@2.13.0(eslint@9.27.0(jiti@1.21.7))(typescript@5.8.3))(eslint-config-prettier@9.1.0(eslint@9.27.0(jiti@1.21.7)))(eslint-plugin-import-x@4.6.1(eslint@9.27.0(jiti@1.21.7))(typescript@5.8.3))(eslint-plugin-jsdoc@50.6.3(eslint@9.27.0(jiti@1.21.7)))(eslint-plugin-n@17.15.1(eslint@9.27.0(jiti@1.21.7)))(eslint-plugin-promise@7.2.1(eslint@9.27.0(jiti@1.21.7)))(eslint-plugin-tsdoc@0.3.0)(eslint-plugin-unicorn@56.0.1(eslint@9.27.0(jiti@1.21.7)))(eslint@9.27.0(jiti@1.21.7))(globals@15.14.0)(typescript-eslint@8.22.0(eslint@9.27.0(jiti@1.21.7))(typescript@5.8.3))(typescript@5.8.3)
       '@types/leaflet':
-        specifier: ^1.9.17
-        version: 1.9.17
+        specifier: ^1.9.18
+        version: 1.9.18
       '@types/react':
         specifier: ^19.1.4
         version: 19.1.4
@@ -589,8 +589,8 @@ packages:
   '@types/json-schema@7.0.15':
     resolution: {integrity: sha512-5+fP8P8MFNC+AyZCDxrB2pkZFPGzqQWUzpSeuuVLvm8VMcorNYavBqoFcxK8bQz4Qsbn4oUEEem4wDLfcysGHA==}
 
-  '@types/leaflet@1.9.17':
-    resolution: {integrity: sha512-IJ4K6t7I3Fh5qXbQ1uwL3CFVbCi6haW9+53oLWgdKlLP7EaS21byWFJxxqOx9y8I0AP0actXSJLVMbyvxhkUTA==}
+  '@types/leaflet@1.9.18':
+    resolution: {integrity: sha512-ht2vsoPjezor5Pmzi5hdsA7F++v5UGq9OlUduWHmMZiuQGIpJ2WS5+Gg9HaAA79gNh1AIPtCqhzejcIZ3lPzXQ==}
 
   '@types/normalize-package-data@2.4.4':
     resolution: {integrity: sha512-37i+OaWTh9qeK4LSHPsyRC7NahnGotNuZvjLSgcPzblpHB3rrCJxAOgI5gCdKm7coonsaX1Of0ILiTcnZjbfxA==}
@@ -2325,7 +2325,7 @@ snapshots:
 
   '@types/json-schema@7.0.15': {}
 
-  '@types/leaflet@1.9.17':
+  '@types/leaflet@1.9.18':
     dependencies:
       '@types/geojson': 7946.0.16
 
