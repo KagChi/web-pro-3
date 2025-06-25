@@ -21,7 +21,7 @@
     "@eslint/eslintrc": "^3.3.1",
     "@eslint/js": "^9.29.0",
     "@hazmi35/eslint-config": "15.2.2",
-    "@types/leaflet": "^1.9.18",
+    "@types/leaflet": "^1.9.19",
     "@types/react": "^19.1.8",
     "@types/react-dom": "^19.1.6",
     "@vitejs/plugin-react": "^4.6.0",
@@ -34,7 +34,7 @@
     "typescript": "^5.8.3",
     "vite": "^7.0.0"
   },
-  "packageManager": "pnpm@10.12.2",
+  "packageManager": "pnpm@10.12.3",
   "pnpm": {
     "onlyBuiltDependencies": [
       "esbuild"
