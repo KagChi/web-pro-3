@@ -229,22 +229,6 @@ export default function Home({ products }: Props) {
                                 <li><a href="#" className="text-white/80 hover:underline">Kebijakan Privasi</a></li>
                             </ul>
                         </div>
-
-                        {/* Newsletter */}
-                        <div>
-                            <h6 className="text-lg font-semibold mb-3">Berlangganan Newsletter</h6>
-                            <p className="text-white/75">Dapatkan berita dan update terbaru dari kami.</p>
-                            <div className="flex mt-4">
-                                <input
-                                    type="email"
-                                    placeholder="Masukkan email Anda"
-                                    className="w-full px-4 py-2 rounded-l-md bg-white text-gray-800 placeholder-gray-500 focus:outline-none"
-                                />
-                                <button className="bg-white text-gray-900 px-4 py-2 rounded-r-md hover:bg-gray-200">
-                                    Berlangganan
-                                </button>
-                            </div>
-                        </div>
                     </div>
 
                     <hr className="my-8 border-white/25" />
