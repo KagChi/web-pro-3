@@ -7,6 +7,7 @@ import { EffectCoverflow, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
+import { Gauge, Headset, Shield } from 'lucide-react';
 
 interface Product {
     id: number;
@@ -143,21 +144,21 @@ export default function Home({ products }: Props) {
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
                         <div className="bg-white text-center p-8 border rounded-lg shadow h-full flex flex-col items-center">
                             <div className="flex items-center justify-center w-16 h-16 rounded-full bg-pink-100 mb-4">
-                                <i className="bi bi-speedometer2 text-3xl text-pink-600"></i>
+                                <Gauge className="text-3xl text-pink-600" />
                             </div>
                             <h5 className="text-lg font-semibold mb-2">Performa Tinggi</h5>
                             <p className="text-gray-500">Website dan aplikasi kami bekerja cepat dan efisien, tanpa kompromi.</p>
                         </div>
                         <div className="bg-white text-center p-8 border rounded-lg shadow h-full flex flex-col items-center">
                             <div className="flex items-center justify-center w-16 h-16 rounded-full bg-pink-100 mb-4">
-                                <i className="bi bi-shield-lock text-3xl text-pink-600"></i>
+                                <Shield className="text-3xl text-pink-600" />
                             </div>
                             <h5 className="text-lg font-semibold mb-2">Keamanan Terjamin</h5>
                             <p className="text-gray-500">Keamanan data Anda adalah prioritas utama dengan sistem berlapis.</p>
                         </div>
                         <div className="bg-white text-center p-8 border rounded-lg shadow h-full flex flex-col items-center">
                             <div className="flex items-center justify-center w-16 h-16 rounded-full bg-pink-100 mb-4">
-                                <i className="bi bi-headset text-3xl text-pink-600"></i>
+                                <Headset className="text-3xl text-pink-600" />
                             </div>
                             <h5 className="text-lg font-semibold mb-2">Dukungan 24/7</h5>
                             <p className="text-gray-500">Tim support kami siap membantu kapan pun Anda butuhkan.</p>
