@@ -7,7 +7,7 @@ import { EffectCoverflow, Pagination } from 'swiper/modules';
 import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
-import { Gauge, Headset, Shield } from 'lucide-react';
+import { Gauge, Headset, Shield, ShoppingCart } from 'lucide-react';
 
 interface Product {
     id: number;
@@ -96,8 +96,8 @@ export default function Home({ products }: Props) {
             <section className="py-16 bg-gray-50" id="product">
                 <div className="max-w-7xl mx-auto px-4">
                     <div className="text-center mb-12">
-                        <h2 className="text-3xl font-bold text-gray-900 mb-2">Kenapa Memilih Kami?</h2>
-                        <p className="text-gray-500">Kami hadir dengan fitur lengkap dan layanan premium</p>
+                        <h2 className="text-3xl font-bold text-gray-900 mb-2">Mengapa Pilih Kami?</h2>
+                        <p className="text-gray-500">Solusi material bangunan terpercaya dengan layanan terbaik untuk Anda</p>
                     </div>
                     <div className="mb-12">
                         <Swiper
@@ -130,9 +130,9 @@ export default function Home({ products }: Props) {
                                                 <span className="text-gray-500 font-medium">Price: {product.price}</span>
                                                 <a
                                                     href="#"
-                                                    className="bg-pink-600 text-white px-4 py-2 rounded hover:bg-pink-700 transition text-sm font-semibold"
+                                                    className="bg-pink-600 text-white px-4 py-2 rounded hover:bg-pink-700 transition text-sm font-semibold flex gap-4 items-center"
                                                 >
-                                                    Lihat Produk
+                                                    Tambah {" "} <ShoppingCart />
                                                 </a>
                                             </div>
                                         </div>
