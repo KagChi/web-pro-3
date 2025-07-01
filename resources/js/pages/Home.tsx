@@ -53,15 +53,6 @@ export default function Home({ products }: Props) {
                         <a className="text-gray-700 hover:text-pink-600 transition" href="#product">Services</a>
                         <a className="text-gray-700 hover:text-pink-600 transition" href="#contact">Contact</a>
                     </div>
-                    <form className="flex items-center space-x-2">
-                        <input className="border border-gray-300 rounded px-2 py-1 focus:outline-none focus:ring-2 focus:ring-pink-500" type="search" placeholder="Search" aria-label="Search" />
-                        <button className="bg-pink-600 text-white px-3 py-1 rounded hover:bg-pink-700 transition" type="submit">Search</button>
-                    </form>
-                    <button className="md:hidden ml-4">
-                        <span className="block w-6 h-0.5 bg-gray-700 mb-1"></span>
-                        <span className="block w-6 h-0.5 bg-gray-700 mb-1"></span>
-                        <span className="block w-6 h-0.5 bg-gray-700"></span>
-                    </button>
                 </div>
             </nav>
 
