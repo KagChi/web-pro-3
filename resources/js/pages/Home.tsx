@@ -23,11 +23,11 @@ export default function Home({ products }: Props) {
         <BaseLayout>
             {/* Contact Popup */}
             {isContactOpen && (
-                <div 
+                <div
                     className="fixed inset-0 bg-black/50 flex items-center justify-center z-50 p-4"
                     onClick={closeContact}
                 >
-                    <div 
+                    <div
                         className="bg-white rounded-2xl max-w-md w-full p-6 relative animate-in slide-in-from-bottom-4 duration-300"
                         onClick={(e) => e.stopPropagation()}
                     >
@@ -161,60 +161,86 @@ export default function Home({ products }: Props) {
 
                     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-12">
                         {products.map((product, idx) => (
-                            <div key={idx} className="bg-white rounded-xl overflow-hidden flex flex-col shadow-lg hover:shadow-xl transition-shadow duration-300">
-                                <div
-                                    className="h-48 bg-cover bg-center"
-                                    style={{ backgroundImage: `url(/storage/${product.image})` }}
-                                />
-                                <div className="p-5 flex flex-col flex-1">
-                                    <h3 className="text-xl font-semibold mb-2">{product.title}</h3>
-                                    <p className="text-gray-600 mb-4 flex-1">{product.desc}</p>
-                                    <div className="flex items-center justify-between">
-                                        <span className="text-gray-500 font-medium">
-                                            Rp {new Intl.NumberFormat('id-ID').format(product.price)}
-                                        </span>
-                                        <a
-                                            href="#"
-                                            className="bg-pink-600 text-white px-4 py-2 rounded hover:bg-pink-700 transition text-sm font-semibold flex gap-4 items-center"
-                                        >
-                                            Tambah {" "} <ShoppingCart />
-                                        </a>
+                            <div
+                                key={product.id}
+                                className="group relative bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 flex flex-col"
+                                data-aos="fade-up"
+                            >
+                                <div className="relative overflow-hidden">
+                                    <div
+                                        className="h-56 bg-cover bg-center transition-transform duration-700 group-hover:scale-110"
+                                        style={{ backgroundImage: `url(/storage/${product.image})` }}
+                                    />
+                                    <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
+                                </div>
+
+                                <div className="p-6 flex flex-col flex-1">
+                                    <div className="mb-3">
+                                        <h3 className="text-xl font-bold text-gray-900 mb-2 group-hover:text-pink-600 transition-colors duration-300">
+                                            {product.title}
+                                        </h3>
+                                        <p className="text-gray-600 text-sm leading-relaxed flex-1 line-clamp-3">
+                                            {product.desc}
+                                        </p>
+                                    </div>
+
+                                    <div className="mt-auto pt-4 border-t border-gray-100">
+                                        <div className="flex items-end justify-between">
+                                            <div className="flex flex-col">
+                                                <span className="text-xs text-gray-400 uppercase tracking-wide">Harga</span>
+                                                <span className="text-lg font-bold text-gray-900">
+                                                    Rp {new Intl.NumberFormat('id-ID').format(product.price)}
+                                                </span>
+                                            </div>
+                                            <button
+                                                className="bg-gradient-to-r from-pink-500 to-violet-500 text-white px-6 h-12 rounded-xl hover:from-pink-600 hover:to-violet-600 transition-all duration-300 text-sm font-semibold flex gap-2 items-center shadow-lg hover:shadow-xl transform hover:scale-105 min-w-[110px]"
+                                                style={{ minHeight: "48px" }}
+                                            >
+                                                <ShoppingCart size={16} />
+                                                Tambah
+                                            </button>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         ))}
                     </div>
 
-                    <div className="text-center m-10">
+                    <div className="text-center mb-16">
                         <a
                             href="/products"
-                            className="inline-flex items-center justify-center bg-pink-600 hover:bg-pink-700 text-white font-semibold px-6 py-3 rounded-lg shadow transition"
+                            className="inline-flex items-center justify-center bg-gradient-to-r from-pink-500 to-violet-500 hover:from-pink-600 hover:to-violet-600 text-white font-semibold px-8 py-4 rounded-2xl shadow-lg hover:shadow-xl transition-all duration-300 transform hover:scale-105"
                         >
-                            Lihat Semua Produk
+                            <span>Lihat Semua Produk</span>
+                            <svg className="w-5 h-5 ml-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M17 8l4 4m0 0l-4 4m4-4H3" />
+                            </svg>
                         </a>
                     </div>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8" data-aos="fade-up">
-                        <div className="bg-white text-center p-8 border rounded-lg shadow h-full flex flex-col items-center">
-                            <div className="flex items-center justify-center w-16 h-16 rounded-full bg-pink-100 mb-4">
-                                <Gauge className="text-3xl text-pink-600" />
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16" data-aos="fade-up">
+                        <div className="group relative bg-white/80 backdrop-blur-sm text-center p-8 rounded-3xl border border-gray-200/50 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 h-full flex flex-col items-center">
+                            <div className="flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-pink-100 to-violet-100 mb-6 group-hover:scale-110 transition-transform duration-300">
+                                <Gauge className="text-4xl text-pink-600" />
                             </div>
-                            <h5 className="text-lg font-semibold mb-2">Performa Tinggi</h5>
-                            <p className="text-gray-500">Website dan aplikasi kami bekerja cepat dan efisien, tanpa kompromi.</p>
+                            <h5 className="text-xl font-bold mb-3 text-gray-900">Performa Tinggi</h5>
+                            <p className="text-gray-600 leading-relaxed">Website dan aplikasi kami bekerja cepat dan efisien, tanpa kompromi.</p>
                         </div>
-                        <div className="bg-white text-center p-8 border rounded-lg shadow h-full flex flex-col items-center">
-                            <div className="flex items-center justify-center w-16 h-16 rounded-full bg-pink-100 mb-4">
-                                <Shield className="text-3xl text-pink-600" />
+                        
+                        <div className="group relative bg-white/80 backdrop-blur-sm text-center p-8 rounded-3xl border border-gray-200/50 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 h-full flex flex-col items-center">
+                            <div className="flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-pink-100 to-violet-100 mb-6 group-hover:scale-110 transition-transform duration-300">
+                                <Shield className="text-4xl text-pink-600" />
                             </div>
-                            <h5 className="text-lg font-semibold mb-2">Keamanan Terjamin</h5>
-                            <p className="text-gray-500">Keamanan data Anda adalah prioritas utama dengan sistem berlapis.</p>
+                            <h5 className="text-xl font-bold mb-3 text-gray-900">Keamanan Terjamin</h5>
+                            <p className="text-gray-600 leading-relaxed">Keamanan data Anda adalah prioritas utama dengan sistem berlapis.</p>
                         </div>
-                        <div className="bg-white text-center p-8 border rounded-lg shadow h-full flex flex-col items-center">
-                            <div className="flex items-center justify-center w-16 h-16 rounded-full bg-pink-100 mb-4">
-                                <Headset className="text-3xl text-pink-600" />
+                        
+                        <div className="group relative bg-white/80 backdrop-blur-sm text-center p-8 rounded-3xl border border-gray-200/50 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 h-full flex flex-col items-center">
+                            <div className="flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-pink-100 to-violet-100 mb-6 group-hover:scale-110 transition-transform duration-300">
+                                <Headset className="text-4xl text-pink-600" />
                             </div>
-                            <h5 className="text-lg font-semibold mb-2">Dukungan 24/7</h5>
-                            <p className="text-gray-500">Tim support kami siap membantu kapan pun Anda butuhkan.</p>
+                            <h5 className="text-xl font-bold mb-3 text-gray-900">Dukungan 24/7</h5>
+                            <p className="text-gray-600 leading-relaxed">Tim support kami siap membantu kapan pun Anda butuhkan.</p>
                         </div>
                     </div>
                 </div>
