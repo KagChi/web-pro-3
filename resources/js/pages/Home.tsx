@@ -1,4 +1,4 @@
-import { Gauge, Headset, Shield, ShoppingCart, X, Phone, Mail, MapPin } from 'lucide-react';
+import { Gauge, Headset, Shield, ShoppingCart, X, Phone, Mail, MapPin, Users, ArrowRight, CheckCircle, DollarSign, Droplets, Package, TreePine, Truck, Wrench } from 'lucide-react';
 import { BaseLayout } from '@/layouts';
 import { Product } from '@/types';
 import { useState } from 'react';
@@ -217,30 +217,136 @@ export default function Home({ products }: Props) {
                             </svg>
                         </a>
                     </div>
+                </div>
+            </section>
 
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8 mb-16" data-aos="fade-up">
-                        <div className="group relative bg-white/80 backdrop-blur-sm text-center p-8 rounded-3xl border border-gray-200/50 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 h-full flex flex-col items-center">
-                            <div className="flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-pink-100 to-violet-100 mb-6 group-hover:scale-110 transition-transform duration-300">
-                                <Gauge className="text-4xl text-pink-600" />
+            <section className="py-20 bg-gradient-to-br from-gray-50 to-white">
+                <div className="container mx-auto px-4">
+                    <div className="text-center mb-16" data-aos="fade-up">
+                        <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-pink-600 to-violet-600 bg-clip-text text-transparent">
+                            Material Berkualitas
+                        </h2>
+                        <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+                            Kami menyediakan berbagai material berkualitas tinggi untuk memenuhi kebutuhan proyek Anda
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 mb-16" data-aos="fade-up">
+                        <div className="group bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                            <div className="w-16 h-16 bg-gradient-to-br from-blue-100 to-blue-200 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                                <Package className="text-2xl text-blue-600" />
                             </div>
-                            <h5 className="text-xl font-bold mb-3 text-gray-900">Performa Tinggi</h5>
-                            <p className="text-gray-600 leading-relaxed">Website dan aplikasi kami bekerja cepat dan efisien, tanpa kompromi.</p>
+                            <h3 className="text-lg font-semibold mb-2 text-gray-900">Material Bangunan</h3>
+                            <p className="text-gray-600 text-sm">Semen, bata, pasir, dan material konstruksi lainnya</p>
                         </div>
-                        
-                        <div className="group relative bg-white/80 backdrop-blur-sm text-center p-8 rounded-3xl border border-gray-200/50 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 h-full flex flex-col items-center">
-                            <div className="flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-pink-100 to-violet-100 mb-6 group-hover:scale-110 transition-transform duration-300">
-                                <Shield className="text-4xl text-pink-600" />
+
+                        <div className="group bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                            <div className="w-16 h-16 bg-gradient-to-br from-green-100 to-green-200 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                                <TreePine className="text-2xl text-green-600" />
                             </div>
-                            <h5 className="text-xl font-bold mb-3 text-gray-900">Keamanan Terjamin</h5>
-                            <p className="text-gray-600 leading-relaxed">Keamanan data Anda adalah prioritas utama dengan sistem berlapis.</p>
+                            <h3 className="text-lg font-semibold mb-2 text-gray-900">Kayu & Plywood</h3>
+                            <p className="text-gray-600 text-sm">Kayu jati, meranti, plywood, dan produk kayu lainnya</p>
                         </div>
-                        
-                        <div className="group relative bg-white/80 backdrop-blur-sm text-center p-8 rounded-3xl border border-gray-200/50 shadow-lg hover:shadow-2xl transition-all duration-500 transform hover:-translate-y-2 h-full flex flex-col items-center">
-                            <div className="flex items-center justify-center w-20 h-20 rounded-2xl bg-gradient-to-br from-pink-100 to-violet-100 mb-6 group-hover:scale-110 transition-transform duration-300">
-                                <Headset className="text-4xl text-pink-600" />
+
+                        <div className="group bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                            <div className="w-16 h-16 bg-gradient-to-br from-orange-100 to-orange-200 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                                <Droplets className="text-2xl text-orange-600" />
                             </div>
-                            <h5 className="text-xl font-bold mb-3 text-gray-900">Dukungan 24/7</h5>
-                            <p className="text-gray-600 leading-relaxed">Tim support kami siap membantu kapan pun Anda butuhkan.</p>
+                            <h3 className="text-lg font-semibold mb-2 text-gray-900">Cat & Finishing</h3>
+                            <p className="text-gray-600 text-sm">Cat tembok, cat kayu, vernis, dan bahan finishing</p>
+                        </div>
+
+                        <div className="group bg-white rounded-2xl p-6 shadow-lg hover:shadow-2xl transition-all duration-300 transform hover:-translate-y-2">
+                            <div className="w-16 h-16 bg-gradient-to-br from-purple-100 to-purple-200 rounded-xl flex items-center justify-center mb-4 group-hover:scale-110 transition-transform duration-300">
+                                <Wrench className="text-2xl text-purple-600" />
+                            </div>
+                            <h3 className="text-lg font-semibold mb-2 text-gray-900">Peralatan</h3>
+                            <p className="text-gray-600 text-sm">Alat pertukangan, mesin, dan peralatan konstruksi</p>
+                        </div>
+                    </div>
+
+                    <div className="bg-gradient-to-r from-pink-500 to-violet-500 rounded-3xl p-8 md:p-12 text-white" data-aos="fade-up">
+                        <div className="grid grid-cols-1 md:grid-cols-3 gap-8 items-center">
+                            <div className="text-center md:text-left">
+                                <h3 className="text-2xl font-bold mb-4">Butuh Material Spesifik?</h3>
+                                <p className="text-pink-100">Kami siap membantu Anda menemukan material yang tepat</p>
+                            </div>
+                            <div className="text-center">
+                                <div className="text-4xl font-bold mb-2">500+</div>
+                                <div className="text-pink-100">Jenis Material</div>
+                            </div>
+                            <div className="text-center">
+                                <a
+                                    href="/products"
+                                    className="inline-flex items-center bg-white text-pink-600 font-semibold px-6 py-3 rounded-xl hover:bg-gray-100 transition-colors duration-300"
+                                >
+                                    Lihat Katalog
+                                    <ArrowRight className="w-4 h-4 ml-2" />
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            <section className="py-20 bg-white">
+                <div className="container mx-auto px-4">
+                    <div className="text-center mb-16" data-aos="fade-up">
+                        <h2 className="text-4xl md:text-5xl font-bold mb-6 bg-gradient-to-r from-pink-600 to-violet-600 bg-clip-text text-transparent">
+                            Mengapa Memilih Kami?
+                        </h2>
+                        <p className="text-lg text-gray-600 max-w-2xl mx-auto">
+                            Kami berkomitmen memberikan layanan terbaik dengan kualitas material yang terjamin dan harga yang kompetitif
+                        </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8" data-aos="fade-up">
+                        <div className="bg-gradient-to-br from-pink-50 to-violet-50 rounded-2xl p-8 border border-pink-100">
+                            <div className="w-12 h-12 bg-pink-500 rounded-lg flex items-center justify-center mb-6">
+                                <CheckCircle className="text-white text-xl" />
+                            </div>
+                            <h3 className="text-xl font-semibold mb-4 text-gray-900">Kualitas Terjamin</h3>
+                            <p className="text-gray-600">Semua material kami telah melalui quality control ketat untuk memastikan kualitas terbaik</p>
+                        </div>
+
+                        <div className="bg-gradient-to-br from-pink-50 to-violet-50 rounded-2xl p-8 border border-pink-100">
+                            <div className="w-12 h-12 bg-pink-500 rounded-lg flex items-center justify-center mb-6">
+                                <Truck className="text-white text-xl" />
+                            </div>
+                            <h3 className="text-xl font-semibold mb-4 text-gray-900">Pengiriman Cepat</h3>
+                            <p className="text-gray-600">Layanan pengiriman cepat ke seluruh Indonesia dengan tracking real-time</p>
+                        </div>
+
+                        <div className="bg-gradient-to-br from-pink-50 to-violet-50 rounded-2xl p-8 border border-pink-100">
+                            <div className="w-12 h-12 bg-pink-500 rounded-lg flex items-center justify-center mb-6">
+                                <DollarSign className="text-white text-xl" />
+                            </div>
+                            <h3 className="text-xl font-semibold mb-4 text-gray-900">Harga Terbaik</h3>
+                            <p className="text-gray-600">Kami menawarkan harga kompetitif dengan diskon khusus untuk pembelian grosir</p>
+                        </div>
+
+                        <div className="bg-gradient-to-br from-pink-50 to-violet-50 rounded-2xl p-8 border border-pink-100">
+                            <div className="w-12 h-12 bg-pink-500 rounded-lg flex items-center justify-center mb-6">
+                                <Users className="text-white text-xl" />
+                            </div>
+                            <h3 className="text-xl font-semibold mb-4 text-gray-900">Konsultasi Gratis</h3>
+                            <p className="text-gray-600">Tim ahli kami siap memberikan saran dan rekomendasi material yang tepat</p>
+                        </div>
+
+                        <div className="bg-gradient-to-br from-pink-50 to-violet-50 rounded-2xl p-8 border border-pink-100">
+                            <div className="w-12 h-12 bg-pink-500 rounded-lg flex items-center justify-center mb-6">
+                                <Shield className="text-white text-xl" />
+                            </div>
+                            <h3 className="text-xl font-semibold mb-4 text-gray-900">Garansi Material</h3>
+                            <p className="text-gray-600">Garansi pengembalian dan penggantian untuk material yang bermasalah</p>
+                        </div>
+
+                        <div className="bg-gradient-to-br from-pink-50 to-violet-50 rounded-2xl p-8 border border-pink-100">
+                            <div className="w-12 h-12 bg-pink-500 rounded-lg flex items-center justify-center mb-6">
+                                <Phone className="text-white text-xl" />
+                            </div>
+                            <h3 className="text-xl font-semibold mb-4 text-gray-900">Layanan Pelanggan 24/7</h3>
+                            <p className="text-gray-600">Tim customer service kami siap membantu Anda kapan saja, 24 jam sehari</p>
                         </div>
                     </div>
                 </div>
