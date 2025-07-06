@@ -2,45 +2,48 @@ import React from 'react';
 import { ShoppingCart } from 'lucide-react';
 import { useFingerprint } from '@/hooks/fp';
 import { Product as ProductType } from '@/types';
+import toast from 'react-hot-toast';
 
 interface ProductProps {
     product: ProductType;
-    onAddToCart?: (productId: number) => void;
 }
 
-const Product: React.FC<ProductProps> = ({ product, onAddToCart }) => {
+const Product: React.FC<ProductProps> = ({ product }) => {
     const handleAddToCart = async () => {
-        try {
-            const { getFingerprint } = useFingerprint();
-            const fingerprint = await getFingerprint();
+        const promise = new Promise(async (resolve, reject) => {
+            try {
+                const { getFingerprint } = useFingerprint();
+                const fingerprint = await getFingerprint();
 
-            const response = await fetch('/api/cart', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                    'Accept': 'application/json',
-                },
-                body: JSON.stringify({
-                    fingerprint: fingerprint,
-                    product_id: product.id,
-                    quantity: 1,
-                }),
-            });
+                const response = await fetch('/api/cart', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                        'Accept': 'application/json',
+                    },
+                    body: JSON.stringify({
+                        fingerprint: fingerprint,
+                        product_id: product.id,
+                        quantity: 1,
+                    }),
+                });
 
-            if (!response.ok) {
-                throw new Error('Failed to add to cart');
+                if (!response.ok) {
+                    throw new Error('Failed to add to cart');
+                }
+
+                resolve('Produk berhasil ditambahkan ke keranjang!');
+            } catch (error) {
+                console.error('Error adding to cart:', error);
+                reject('Gagal menambahkan produk ke keranjang');
             }
+        });
 
-            const data = await response.json();
-            
-            // Call the callback if provided
-            if (onAddToCart) {
-                onAddToCart(product.id);
-            }
-        } catch (error) {
-            console.error('Error adding to cart:', error);
-            // You might want to show a toast notification here
-        }
+        toast.promise(promise, {
+            loading: 'Menambahkan ke keranjang...',
+            success: (message) => message as string,
+            error: (message) => message as string,
+        });
     };
 
     return (

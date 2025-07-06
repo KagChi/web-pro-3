@@ -13,10 +13,19 @@ class CartController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): JsonResponse
+    public function index(Request $request): JsonResponse
     {
-        $carts = Cart::with('items.product')->get();
-        return response()->json(CartResource::collection($carts));
+        $fingerprint = $request->query('fingerprint');
+        
+        if (!$fingerprint) {
+            return response()->json(['error' => 'Fingerprint is required'], 400);
+        }
+        
+        $cart = Cart::with('items.product')
+            ->where('fingerprint', $fingerprint)
+            ->first();
+            
+        return response()->json($cart ? new CartResource($cart) : null);
     }
 
     /**
@@ -58,31 +67,37 @@ class CartController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, Cart $cart): JsonResponse
+    public function update(Request $request): JsonResponse
     {
         $validated = $request->validate([
+            'fingerprint' => 'required|string',
             'product_id' => 'required|exists:products,id',
-            'quantity' => 'required|integer|min:1',
+            'quantity' => 'required|integer|min:0',
         ]);
+
+        $cart = Cart::where('fingerprint', $validated['fingerprint'])->first();
+        
+        if (!$cart) {
+            return response()->json(['error' => 'Cart not found'], 404);
+        }
 
         $product = Product::findOrFail($validated['product_id']);
         
+        $existingItem = $cart->items()->where('product_id', $validated['product_id'])->first();
+        
         if ($validated['quantity'] === 0) {
-            $cart->removeItem($product);
+            if ($existingItem) {
+                $existingItem->delete();
+            }
         } else {
-            $cart->addItem($product, $validated['quantity']);
+            if ($existingItem) {
+                $existingItem->update(['quantity' => $validated['quantity']]);
+            } else {
+                $cart->addItem($product, $validated['quantity']);
+            }
         }
         
         $cart->load('items.product');
         return response()->json(new CartResource($cart));
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     */
-    public function destroy(Cart $cart): JsonResponse
-    {
-        $cart->delete();
-        return response()->json(null, 204);
     }
 }

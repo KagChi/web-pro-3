@@ -1,41 +1,98 @@
+import { useFingerprint } from "@/hooks/fp";
+import { Product } from "@/types";
 import { ShoppingCart, X, Plus, Minus, Trash2 } from "lucide-react";
-import { useEffect, useState } from "react";
+import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
+
+interface CartItem {
+    id: number;
+    product: Product;
+    quantity: number;
+}
+
+interface Cart {
+    id: number;
+    fingerprint: string;
+    items: CartItem[];
+}
 
 export function Cart() {
     const [isOpen, setIsOpen] = useState(false);
-
-    const cartItems = [
-        {
-            id: 1,
-            name: "Cat Premium",
-            price: 150000,
-            quantity: 2,
-            image: "https://images.unsplash.com/photo-1604654894610-df63bc536371?w=100&h=100&fit=crop"
-        },
-        {
-            id: 2,
-            name: "Kit Cat",
-            price: 299000,
-            quantity: 1,
-            image: "https://images.unsplash.com/photo-1632345031435-8727f6897d53?w=100&h=100&fit=crop"
-        }
-    ];
+    const [cart, setCart] = useState<Cart | null>(null);
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        if (isOpen) {
-            document.body.style.overflow = "hidden";
-        } else {
-            document.body.style.overflow = "";
-        }
-
-        return () => {
-            document.body.style.overflow = "";
-        };
+        fetchCart();
     }, [isOpen]);
 
+    const fetchCart = async () => {
+        try {
+            setLoading(true);
+            const { getFingerprint } = useFingerprint();
+            const fingerprint = await getFingerprint();
+            const response = await fetch('/api/cart?fingerprint=' + fingerprint);
+            if (response.ok) {
+                const data = await response.json();
+                setCart(data || null);
+            }
+        } catch (error) {
+            console.error('Error fetching cart:', error);
+        } finally {
+            setLoading(false);
+        }
+    };
+
+    const handleRemoveItem = async (productId: number) => {
+        try {
+            const { getFingerprint } = useFingerprint();
+            const fingerprint = await getFingerprint();
+            const response = await fetch(`/api/cart/${cart!.id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    fingerprint,
+                    product_id: productId,
+                    quantity: 0
+                })
+            });
+            
+            if (response.ok) {
+                await fetchCart();
+            }
+        } catch (error) {
+            console.error('Error removing item:', error);
+        }
+    };
+
+    const handleUpdateQuantity = async (productId: number, newQuantity: number) => {
+        try {
+            const { getFingerprint } = useFingerprint();
+            const fingerprint = await getFingerprint();
+            const response = await fetch(`/api/cart/${cart!.id}`, {
+                method: 'PATCH',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    fingerprint,
+                    product_id: productId,
+                    quantity: newQuantity
+                })
+            });
+            
+            if (response.ok) {
+                await fetchCart();
+            }
+        } catch (error) {
+            console.error('Error updating quantity:', error);
+        }
+    };
+
+    const cartItems = cart?.items || [];
     const totalItems = cartItems.reduce((sum, item) => sum + item.quantity, 0);
-    const totalPrice = cartItems.reduce((sum, item) => sum + (item.price * item.quantity), 0);
+    const totalPrice = cartItems.reduce((sum, item) => sum + (item.product.price * item.quantity), 0);
 
     return (
         <div className="relative">
@@ -48,7 +105,7 @@ export function Cart() {
                     <ShoppingCart className="w-5 h-5 text-white" />
                     {totalItems > 0 && (
                         <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
-                            {totalItems}
+                            {new Intl.NumberFormat('id-ID').format(totalItems)}
                         </span>
                     )}
                 </div>
@@ -76,7 +133,7 @@ export function Cart() {
                                         <h2 className="text-2xl font-bold bg-gradient-to-r from-pink-600 to-violet-600 bg-clip-text text-transparent">
                                             Keranjang Belanja
                                         </h2>
-                                        <p className="text-sm text-gray-500 mt-1">{totalItems} item</p>
+                                        <p className="text-sm text-gray-500 mt-1">{new Intl.NumberFormat('id-ID').format(totalItems)} item</p>
                                     </div>
                                     <button 
                                         onClick={() => setIsOpen(false)}
@@ -88,7 +145,14 @@ export function Cart() {
                             </div>
 
                             {/* Konten Keranjang */}
-                            {cartItems.length > 0 ? (
+                            {loading ? (
+                                <div className="flex-1 flex items-center justify-center">
+                                    <div className="text-center">
+                                        <div className="animate-spin rounded-full h-8 w-8 border-b-2 border-pink-500 mx-auto"></div>
+                                        <p className="text-gray-500 mt-2">Loading...</p>
+                                    </div>
+                                </div>
+                            ) : cartItems.length > 0 ? (
                                 <>
                                     <div className="flex-1 overflow-y-auto p-6 space-y-4">
                                         {cartItems.map(item => (
@@ -96,30 +160,40 @@ export function Cart() {
                                                 <div className="flex items-center space-x-4">
                                                     <div className="relative">
                                                         <img 
-                                                            src={item.image} 
-                                                            alt={item.name}
+                                                            src={item.product.image} 
+                                                            alt={item.product.title}
                                                             className="w-20 h-20 rounded-xl object-cover shadow-md"
                                                         />
                                                         <div className="absolute inset-0 bg-gradient-to-t from-black/20 to-transparent rounded-xl opacity-0 group-hover:opacity-100 transition-opacity duration-300" />
                                                     </div>
                                                     <div className="flex-1 min-w-0">
-                                                        <h3 className="font-semibold text-gray-900 text-sm truncate">{item.name}</h3>
+                                                        <h3 className="font-semibold text-gray-900 text-sm truncate">{item.product.title}</h3>
                                                         <p className="text-sm text-pink-600 font-bold mt-1">
-                                                            Rp {item.price.toLocaleString('id-ID')}
+                                                            Rp {new Intl.NumberFormat('id-ID').format(item.product.price)}
                                                         </p>
                                                     </div>
                                                     <div className="flex flex-col items-end space-y-2">
-                                                        <button className="p-1 rounded-lg hover:bg-red-50 text-red-500 hover:text-red-600 transition-colors">
+                                                        <button 
+                                                            onClick={() => handleRemoveItem(item.product.id)}
+                                                            className="p-1 rounded-lg hover:bg-red-50 text-red-500 hover:text-red-600 transition-colors"
+                                                        >
                                                             <Trash2 className="w-4 h-4" />
                                                         </button>
                                                         <div className="flex items-center space-x-2 bg-gray-50 rounded-lg p-1">
-                                                            <button className="w-6 h-6 rounded-md hover:bg-white transition-colors flex items-center justify-center">
+                                                            <button 
+                                                                onClick={() => handleUpdateQuantity(item.product.id, item.quantity - 1)}
+                                                                disabled={item.quantity <= 1}
+                                                                className="w-6 h-6 rounded-md hover:bg-white transition-colors flex items-center justify-center disabled:opacity-50 disabled:cursor-not-allowed"
+                                                            >
                                                                 <Minus className="w-3 h-3 text-gray-600" />
                                                             </button>
                                                             <span className="text-sm font-medium text-gray-900 min-w-[20px] text-center">
-                                                                {item.quantity}
+                                                                {new Intl.NumberFormat('id-ID').format(item.quantity)}
                                                             </span>
-                                                            <button className="w-6 h-6 rounded-md hover:bg-white transition-colors flex items-center justify-center">
+                                                            <button 
+                                                                onClick={() => handleUpdateQuantity(item.product.id, item.quantity + 1)}
+                                                                className="w-6 h-6 rounded-md hover:bg-white transition-colors flex items-center justify-center"
+                                                            >
                                                                 <Plus className="w-3 h-3 text-gray-600" />
                                                             </button>
                                                         </div>
@@ -129,7 +203,7 @@ export function Cart() {
                                                     <div className="flex justify-between items-center">
                                                         <span className="text-xs text-gray-500">Subtotal</span>
                                                         <span className="text-sm font-bold text-gray-900">
-                                                            Rp {(item.price * item.quantity).toLocaleString('id-ID')}
+                                                            Rp {new Intl.NumberFormat('id-ID').format(item.product.price * item.quantity)}
                                                         </span>
                                                     </div>
                                                 </div>
@@ -143,7 +217,7 @@ export function Cart() {
                                             <div className="flex justify-between items-center">
                                                 <span className="text-lg font-semibold text-gray-800">Total</span>
                                                 <span className="text-2xl font-bold bg-gradient-to-r from-pink-600 to-violet-600 bg-clip-text text-transparent">
-                                                    Rp {totalPrice.toLocaleString('id-ID')}
+                                                    Rp {new Intl.NumberFormat('id-ID').format(totalPrice)}
                                                 </span>
                                             </div>
                                             <button className="w-full bg-gradient-to-r from-pink-500 to-violet-500 text-white py-4 px-6 rounded-2xl font-semibold hover:from-pink-600 hover:to-violet-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98]">
