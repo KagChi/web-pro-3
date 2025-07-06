@@ -86,7 +86,7 @@ figure.attachment img {
 
 @media (min-width: 768px) {
     figure.attachment img {
-        border-radius: 0.5rem
+        border-radius: 0.5rem;
     }
 }
 
