@@ -66,8 +66,8 @@ class OrderController extends Controller
                 });
                 $order->load('items');
 
-                // $cart->items()->delete();
-                // $cart->delete();
+                $cart->items()->delete();
+                $cart->delete();
 
                 return response()->json(new OrderResource($order));
             });

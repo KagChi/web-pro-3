@@ -3,9 +3,11 @@ import { useEffect, useState } from 'react';
 import { useFingerprint } from '@/hooks/fp';
 import { CheckoutLayout } from '@/layouts/Checkout';
 import { ShoppingCart, ArrowLeft, CreditCard, Shield, Truck, Plus, Minus, Trash2, User, Mail, Phone, MapPin } from 'lucide-react';
+import toast from 'react-hot-toast';
 
 export default function Checkout() {
     const [loading, setLoading] = useState(false);
+    const [isSubmitting, setIsSubmitting] = useState(false);
     const [cart, setCart] = useState<Cart | null>(null);
     const [clientInfo, setClientInfo] = useState({
         name: '',
@@ -24,8 +26,8 @@ export default function Checkout() {
             const response = await fetch('/api/cart?fingerprint=' + fingerprint);
             if (response.ok) {
                 const data = await response.json();
-                if (!data || data.items.length === 0) {
-                    return null;
+                if (!data || data.items?.length === 0) {
+                    return setCart(null);
                 }
                 setCart(data);
             }
@@ -97,6 +99,7 @@ export default function Checkout() {
         }
 
         try {
+            setIsSubmitting(true);
             const fingerprint = await getFingerprint();
             const response = await fetch('/api/order', {
                 method: 'POST',
@@ -109,8 +112,17 @@ export default function Checkout() {
                     ...clientInfo
                 })
             });
+
+            if (response.ok) {
+                toast.success('Pesanan berhasil dibuat!');
+            } else {
+                toast.error('Gagal membuat pesanan. Silakan coba lagi.');
+            }
         } catch (error) {
             console.error('Error during checkout:', error);
+        } finally {
+            setIsSubmitting(false);
+            void fetchCart();
         }
     };
 
@@ -118,7 +130,7 @@ export default function Checkout() {
         fetchCart();
     }, []);
 
-    const subtotal = cart?.items.reduce((sum, item) => sum + (Number(item.product.price) * item.quantity), 0) || 0;
+    const subtotal = cart?.items?.reduce((sum, item) => sum + (Number(item.product.price) * item.quantity), 0) || 0;
     const tax = subtotal * 0.1;
     const total = subtotal + tax;
 
@@ -134,7 +146,7 @@ export default function Checkout() {
                             </div>
                         </div>
                     </div>
-                ) : cart && cart.items.length > 0 ? (
+                ) : cart && cart.items && cart.items.length > 0 ? (
                     <div className="container mx-auto px-4 py-8">
                         {/* Header */}
                         <div className="mb-8">
@@ -325,9 +337,13 @@ export default function Checkout() {
                                         </div>
                                     </div>
 
-                                    <button type="submit" onClick={(e) => handleSubmit(e)} className="w-full bg-gradient-to-r from-pink-500 to-violet-500 text-white py-4 px-6 rounded-2xl font-semibold hover:from-pink-600 hover:to-violet-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98] mt-8 flex items-center justify-center space-x-2">
+                                    <button 
+                                        type="submit"
+                                        disabled={isSubmitting}
+                                        className="w-full bg-gradient-to-r from-pink-500 to-violet-500 text-white py-4 px-6 rounded-2xl font-semibold hover:from-pink-600 hover:to-violet-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98] mt-8 flex items-center justify-center space-x-2 disabled:opacity-50 disabled:cursor-not-allowed disabled:transform-none"
+                                    >
                                         <Shield className="w-5 h-5" />
-                                        <span>Lanjutkan ke Pembayaran</span>
+                                        <span>{isSubmitting ? 'Memproses...' : 'Lanjutkan ke Pembayaran'}</span>
                                     </button>
 
                                     {/* Trust Indicators */}
