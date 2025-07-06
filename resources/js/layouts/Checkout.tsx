@@ -20,7 +20,7 @@ export function CheckoutLayout({ children }: PropsWithChildren) {
                             <div className="flex items-center space-x-2">
                                 <img
                                     className="h-10 w-10 rounded-xl object-cover shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105"
-                                    src="./assets/Logo.png"
+                                    src="/assets/Logo.png"
                                     alt="Logo"
                                 />
                                 <h3 className="text-2xl font-bold bg-gradient-to-r from-pink-400 to-violet-400 bg-clip-text text-transparent">

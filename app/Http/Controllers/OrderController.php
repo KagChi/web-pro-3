@@ -7,20 +7,29 @@ use App\Models\Cart;
 use App\Models\Order;
 use Illuminate\Http\Request;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\Resources\Json\AnonymousResourceCollection;
 
 class OrderController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index(Request $request): JsonResponse
+    public function index(Request $request): AnonymousResourceCollection
     {
         $validated = $request->validate([
             'fingerprint' => 'required|string',
+            'per_page' => 'nullable|integer|min:1|max:100',
+            'page' => 'nullable|integer|min:1',
         ]);
 
-        $orders = Order::where('fingerprint', $validated['fingerprint'])->get();
-        return response()->json($orders);
+        $perPage = $validated['per_page'] ?? 15;
+        $page = $validated['page'] ?? 1;
+
+        $orders = Order::where('fingerprint', $validated['fingerprint'])
+            ->with("items.product")
+            ->paginate($perPage, ['*'], 'page', $page);
+            
+        return OrderResource::collection($orders);
     }
 
     /**

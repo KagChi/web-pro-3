@@ -31,7 +31,7 @@ export function BaseLayout({ children }: PropsWithChildren) {
                         <a className="flex items-center group" href="/">
                             <img
                                 className="h-10 w-10 rounded-xl object-cover shadow-lg group-hover:shadow-xl transition-all duration-300 group-hover:scale-105"
-                                src="./assets/Logo.png"
+                                src="/assets/Logo.png"
                                 alt="Logo"
                             />
                             <span className="ml-3 text-xl font-bold bg-gradient-to-r from-pink-600 to-violet-600 bg-clip-text text-transparent">

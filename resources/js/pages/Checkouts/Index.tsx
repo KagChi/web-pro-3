@@ -381,6 +381,6 @@ export default function Checkout() {
                     </div>
                 )}
             </div>
-        </CheckoutLayout >
+        </CheckoutLayout>
     );
 }

@@ -21,5 +21,9 @@ Route::get("/products", function () {
 });
 
 Route::get("/checkout", function () {
-    return Inertia::render("Checkout");
+    return Inertia::render("Checkouts/Index");
+});
+
+Route::get("/checkout/history", function () {
+    return Inertia::render("Checkouts/History");
 });
