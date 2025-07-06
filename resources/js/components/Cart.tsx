@@ -48,7 +48,7 @@ export function Cart() {
 
         fetchItemCount();
 
-        intervalId = setInterval(fetchItemCount, 400);
+        intervalId = setInterval(fetchItemCount, 500);
 
         return () => {
             if (intervalId) {
