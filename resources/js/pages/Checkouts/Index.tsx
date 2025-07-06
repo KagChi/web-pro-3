@@ -118,6 +118,9 @@ export default function Checkout() {
             } else {
                 toast.error('Gagal membuat pesanan. Silakan coba lagi.');
             }
+
+            const orderData = await response.json();
+            window.location.href = `/checkout/${orderData.id}`;
         } catch (error) {
             console.error('Error during checkout:', error);
         } finally {

@@ -64,7 +64,7 @@ class OrderController extends Controller
                     return response()->json(['error' => 'Cart is empty or total amount is zero'], 400);
                 }
 
-                $order = Order::create(array_merge($validated, ['total_amount' => $totalAmount, 'status' => 'pending']));
+                $order = Order::create(array_merge($validated, ['total_amount' => $totalAmount, 'status' => 'payment_required']));
 
                 $cart->items->each(function($cartItem) use ($order) {
                     $order->items()->create([
@@ -92,5 +92,21 @@ class OrderController extends Controller
     public function show(Order $order): JsonResponse
     {
         return response()->json(new OrderResource($order));
+    }
+
+    /**
+     * Mark order as pending payment.
+     */
+    public function pay(Order $order): JsonResponse
+    {
+        try {
+            $order->update(['status' => 'pending']);
+            
+            return response()->json([
+                'message' => 'Order paid successfully'
+            ]);
+        } catch (\Exception $e) {
+            return response()->json(['error' => 'Failed to update order status: ' . $e->getMessage()], 500);
+        }
     }
 }

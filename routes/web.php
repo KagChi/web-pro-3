@@ -1,5 +1,7 @@
 <?php
 
+use App\Http\Resources\OrderResource;
+use App\Models\Order;
 use Illuminate\Support\Facades\Route;
 use Inertia\Inertia;
 use App\Models\Product;
@@ -26,4 +28,12 @@ Route::get("/checkout", function () {
 
 Route::get("/checkout/history", function () {
     return Inertia::render("Checkouts/History");
+});
+
+Route::get('/checkout/{order}', function (Order $order) {
+    $order->load('items.product');
+
+    return Inertia::render('Checkouts/Info', [
+        'order' => $order,
+    ]);
 });

@@ -33,7 +33,7 @@ export type OrderItem = {
 
 export type Order = {
     id: number;
-    status: "cancelled" | "delivered" | "pending" | "processing" | "shipped";
+    status: "cancelled" | "delivered" | "payment_required" | "pending" | "processing" | "shipped";
     total_amount: number;
     name: string;
     email: string;
