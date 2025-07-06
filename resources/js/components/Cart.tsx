@@ -1,24 +1,12 @@
 import { useFingerprint } from "@/hooks/fp";
-import { Product } from "@/types";
+import { Cart as CartType } from "@/types";
 import { ShoppingCart, X, Plus, Minus, Trash2 } from "lucide-react";
 import { useState, useEffect } from "react";
 import { createPortal } from "react-dom";
 
-interface CartItem {
-    id: number;
-    product: Product;
-    quantity: number;
-}
-
-interface Cart {
-    id: number;
-    fingerprint: string;
-    items: CartItem[];
-}
-
 export function Cart() {
     const [isOpen, setIsOpen] = useState(false);
-    const [cart, setCart] = useState<Cart | null>(null);
+    const [cart, setCart] = useState<CartType | null>(null);
     const [loading, setLoading] = useState(true);
 
     const [itemCount, setItemCount] = useState(0);
@@ -256,9 +244,12 @@ export function Cart() {
                                                     Rp {new Intl.NumberFormat('id-ID').format(totalPrice)}
                                                 </span>
                                             </div>
-                                            <button className="w-full bg-gradient-to-r from-pink-500 to-violet-500 text-white py-4 px-6 rounded-2xl font-semibold hover:from-pink-600 hover:to-violet-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98]">
+                                            <a 
+                                                href="/checkout"
+                                                className="w-full bg-gradient-to-r from-pink-500 to-violet-500 text-white py-4 px-6 rounded-2xl font-semibold hover:from-pink-600 hover:to-violet-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-[1.02] active:scale-[0.98] block text-center"
+                                            >
                                                 Lanjutkan ke Pembayaran
-                                            </button>
+                                            </a>
                                             <div className="flex items-center justify-center space-x-4 text-xs text-gray-500">
                                                 <div className="flex items-center space-x-1">
                                                     <div className="w-2 h-2 bg-green-400 rounded-full"></div>

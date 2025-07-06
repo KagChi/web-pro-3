@@ -10,8 +10,12 @@ export type Product = {
 
 export type CartItem = {
     id: number;
-    name: string;
-    price: number;
+    product: Product;
     quantity: number;
-    image: string;
+};
+
+export type Cart = {
+    id: number;
+    fingerprint: string;
+    items: CartItem[];
 };

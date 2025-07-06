@@ -19,3 +19,7 @@ Route::get("/products", function () {
         'products' => $products
     ]);
 });
+
+Route::get("/checkout", function () {
+    return Inertia::render("Checkout");
+});
