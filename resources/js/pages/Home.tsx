@@ -8,6 +8,7 @@ import 'swiper/css';
 import 'swiper/css/effect-coverflow';
 import 'swiper/css/pagination';
 import { Gauge, Headset, Shield, ShoppingCart } from 'lucide-react';
+import { BaseLayout } from '@/layouts';
 
 interface Product {
     id: number;
@@ -41,7 +42,7 @@ export default function Home({ products }: Props) {
     }, []);
 
     return (
-        <>
+        <BaseLayout>
             {/* Navbar */}
             <nav className="bg-white shadow px-6 py-2">
                 <div className="max-w-7xl mx-auto px-4 flex items-center justify-between">
@@ -59,7 +60,7 @@ export default function Home({ products }: Props) {
             {/* Hero Section */}
             <header className="bg-gradient-to-r from-pink-500 via-fuchsia-500 to-violet-500 py-12">
                 <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center">
-                    <div className="md:w-1/2">
+                    <div className="md:w-1/2" data-aos="fade-right">
                         <h1 className="text-4xl md:text-5xl font-bold text-white mb-4">Kebutuhan Material Bangunan Anda, Kami yang Penuhi</h1>
                         <p className="text-lg text-white/90 mb-6">Dari semen hingga pipa, dari cat hingga pasir, semua tersedia dengan harga terbaik dan pengiriman cepat!</p>
                         <div className="flex flex-col sm:flex-row gap-3">
@@ -77,14 +78,14 @@ export default function Home({ products }: Props) {
                             </a>
                         </div>
                     </div>
-                    <div className="md:w-1/2 mt-8 md:mt-0 flex justify-center">
+                    <div className="md:w-1/2 mt-8 md:mt-0 flex justify-center" data-aos="fade-left">
                         <img src="assets/Hero.jpg" alt="Toko Material" className="rounded-lg shadow-lg w-full max-w-md ml-auto" />
                     </div>
                 </div>
             </header>
 
             {/* Features Section */}
-            <section className="py-16 bg-gray-50" id="product">
+            <section className="py-16 bg-gray-50" id="product" data-aos="fade-up">
                 <div className="max-w-7xl mx-auto px-4">
                     <div className="text-center mb-12">
                         <h2 className="text-3xl font-bold text-gray-900 mb-2">Mengapa Pilih Kami?</h2>
@@ -132,7 +133,7 @@ export default function Home({ products }: Props) {
                             ))}
                         </Swiper>
                     </div>
-                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
+                    <div className="grid grid-cols-1 md:grid-cols-3 gap-8" data-aos="fade-up">
                         <div className="bg-white text-center p-8 border rounded-lg shadow h-full flex flex-col items-center">
                             <div className="flex items-center justify-center w-16 h-16 rounded-full bg-pink-100 mb-4">
                                 <Gauge className="text-3xl text-pink-600" />
@@ -159,7 +160,7 @@ export default function Home({ products }: Props) {
             </section>
 
             {/* Contact Section */}
-            <div id="contact" className="max-w-7xl mx-auto px-4 my-16">
+            <div id="contact" className="max-w-7xl mx-auto px-4 my-16" data-aos="fade-up">
                 <h1 className="text-3xl font-bold text-center mb-8" id="kontak">Hubungi Kami</h1>
                 <div className="flex flex-col md:flex-row gap-8">
                     <div className="md:w-1/2">
@@ -187,7 +188,7 @@ export default function Home({ products }: Props) {
 
             {/* Footer */}
             <footer className="bg-gradient-to-r from-pink-600 to-violet-500 text-white py-10">
-                <div className="max-w-7xl mx-auto px-4">
+                <div className="max-w-7xl mx-auto px-4" data-aos="fade-right">
                     <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
 
                         {/* Company Info */}
@@ -243,6 +244,6 @@ export default function Home({ products }: Props) {
                     </div>
                 </div>
             </footer>
-        </>
+        </BaseLayout>
     );
 }
