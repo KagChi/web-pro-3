@@ -39,26 +39,32 @@ export function BaseLayout({ children }: PropsWithChildren) {
                         </a>
 
                         {/* Desktop Navigation */}
-                        <div className="hidden md:flex items-center space-x-1">
+                        <div className="hidden md:flex items-center space-x-2">
                             <a 
-                                className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+                                className={`relative px-6 py-3 rounded-xl font-semibold transition-all duration-500 group overflow-hidden ${
                                     activePage === "home" 
-                                        ? "bg-gradient-to-r from-pink-500 to-violet-500 text-white shadow-lg" 
-                                        : "text-gray-700 hover:text-pink-600 hover:bg-pink-50"
+                                        ? "bg-gradient-to-r from-pink-500 via-purple-500 to-violet-500 text-white shadow-xl shadow-pink-500/25" 
+                                        : "text-gray-700 hover:text-white hover:shadow-lg"
                                 }`} 
                                 href="/"
                             >
-                                Home
+                                <span className="relative z-10">Home</span>
+                                {activePage !== "home" && (
+                                    <div className="absolute inset-0 bg-gradient-to-r from-pink-500 via-purple-500 to-violet-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+                                )}
                             </a>
                             <a 
-                                className={`px-4 py-2 rounded-lg font-medium transition-all duration-300 ${
+                                className={`relative px-6 py-3 rounded-xl font-semibold transition-all duration-500 group overflow-hidden ${
                                     activePage === "products" 
-                                        ? "bg-gradient-to-r from-pink-500 to-violet-500 text-white shadow-lg" 
-                                        : "text-gray-700 hover:text-pink-600 hover:bg-pink-50"
+                                        ? "bg-gradient-to-r from-pink-500 via-purple-500 to-violet-500 text-white shadow-xl shadow-pink-500/25" 
+                                        : "text-gray-700 hover:text-white hover:shadow-lg"
                                 }`} 
                                 href="/products"
                             >
-                                Products
+                                <span className="relative z-10">Products</span>
+                                {activePage !== "products" && (
+                                    <div className="absolute inset-0 bg-gradient-to-r from-pink-500 via-purple-500 to-violet-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+                                )}
                             </a>
                         </div>
 
@@ -100,7 +106,7 @@ export function BaseLayout({ children }: PropsWithChildren) {
 
                     {/* Mobile menu */}
                     {isMobileMenuOpen && (
-                        <div className="md:hidden border-t border-gray-200/50 bg-white/95 backdrop-blur-md">
+                        <div className="md:hidden border-t border-gray-200/50">
                             <div className="px-4 py-3 space-y-1">
                                 <a
                                     className={`block px-4 py-3 rounded-lg font-medium transition-all duration-300 ${
@@ -124,8 +130,8 @@ export function BaseLayout({ children }: PropsWithChildren) {
                                 >
                                     Products
                                 </a>
+                                <Cart />
                             </div>
-                            <Cart />
                         </div>
                     )}
                 </div>
