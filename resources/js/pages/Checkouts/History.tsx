@@ -185,6 +185,19 @@ export default function Checkout() {
         <CheckoutLayout>
             <div className="min-h-screen bg-gradient-to-br from-pink-50 via-white to-violet-50">
                 <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+                    {/* Back Button */}
+                    <div className="mb-8">
+                        <a
+                            href="/"
+                            className="inline-flex items-center px-4 py-2 bg-white/80 backdrop-blur-sm rounded-xl border border-gray-200 shadow-sm hover:shadow-md transition-all duration-300 text-gray-700 hover:text-gray-900"
+                        >
+                            <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
+                            </svg>
+                            Kembali
+                        </a>
+                    </div>
+
                     <div className="relative mb-16">
                         <div className="absolute inset-0 bg-gradient-to-r from-pink-500/10 to-violet-500/10 rounded-3xl blur-3xl"></div>
                         <div className="relative text-center">
