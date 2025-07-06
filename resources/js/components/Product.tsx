@@ -1,18 +1,19 @@
 import React from 'react';
 import { ShoppingCart } from 'lucide-react';
-import { useFingerprint } from '@/hooks/fp';
 import { Product as ProductType } from '@/types';
 import toast from 'react-hot-toast';
+import { useFingerprint } from '@/hooks/fp';
 
 interface ProductProps {
     product: ProductType;
 }
 
 const Product: React.FC<ProductProps> = ({ product }) => {
+    const { getFingerprint } = useFingerprint();
+
     const handleAddToCart = async () => {
         const promise = new Promise(async (resolve, reject) => {
             try {
-                const { getFingerprint } = useFingerprint();
                 const fingerprint = await getFingerprint();
 
                 const response = await fetch('/api/cart', {

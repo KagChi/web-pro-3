@@ -1,4 +1,4 @@
-import { Gauge, Headset, Shield, ShoppingCart, X, Phone, Mail, MapPin, Users, ArrowRight, CheckCircle, DollarSign, Droplets, Package, TreePine, Truck, Wrench } from 'lucide-react';
+import { Shield, X, Phone, Mail, MapPin, Users, ArrowRight, CheckCircle, DollarSign, Droplets, Package, TreePine, Truck, Wrench } from 'lucide-react';
 import { BaseLayout } from '@/layouts';
 import { Product as ProductType } from '@/types';
 import { useState } from 'react';

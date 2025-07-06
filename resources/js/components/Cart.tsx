@@ -8,6 +8,7 @@ export function Cart() {
     const [isOpen, setIsOpen] = useState(false);
     const [cart, setCart] = useState<CartType | null>(null);
     const [loading, setLoading] = useState(true);
+    const { getFingerprint } = useFingerprint();
 
     const [itemCount, setItemCount] = useState(0);
 
@@ -20,7 +21,6 @@ export function Cart() {
             
             try {
                 isRequestInProgress = true;
-                const { getFingerprint } = useFingerprint();
                 const fingerprint = await getFingerprint();
                 const response = await fetch(`/api/cart/items/count?fingerprint=${fingerprint}`);
                 if (response.ok) {
