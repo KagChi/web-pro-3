@@ -43,20 +43,6 @@ export default function Home({ products }: Props) {
 
     return (
         <BaseLayout>
-            {/* Navbar */}
-            <nav className="bg-white shadow px-6 py-2">
-                <div className="max-w-7xl mx-auto px-4 flex items-center justify-between">
-                    <a className="flex items-center" href="#">
-                        <img className="rounded-full h-10 w-10 object-cover" src="./assets/Logo.png" alt="Logo" />
-                    </a>
-                    <div className="hidden md:flex items-center space-x-8">
-                        <a className="text-pink-600 font-semibold" href="#">Home</a>
-                        <a className="text-gray-700 hover:text-pink-600 transition" href="#product">Services</a>
-                        <a className="text-gray-700 hover:text-pink-600 transition" href="#contact">Contact</a>
-                    </div>
-                </div>
-            </nav>
-
             {/* Hero Section */}
             <header className="bg-gradient-to-r from-pink-500 via-fuchsia-500 to-violet-500 py-12">
                 <div className="max-w-7xl mx-auto px-4 flex flex-col md:flex-row items-center">
@@ -91,47 +77,28 @@ export default function Home({ products }: Props) {
                         <h2 className="text-3xl font-bold text-gray-900 mb-2">Mengapa Pilih Kami?</h2>
                         <p className="text-gray-500">Solusi material bangunan terpercaya dengan layanan terbaik untuk Anda</p>
                     </div>
-                    <div className="mb-12">
-                        <Swiper
-                            effect={'coverflow'}
-                            grabCursor={true}
-                            centeredSlides={true}
-                            slidesPerView={'auto'}
-                            coverflowEffect={{
-                                rotate: 50,
-                                stretch: 0,
-                                depth: 100,
-                                modifier: 1,
-                                slideShadows: true,
-                            }}
-                            pagination={true}
-                            modules={[EffectCoverflow, Pagination]}
-                            className="py-4"
-                        >
-                            {products.map((product, idx) => (
-                                <SwiperSlide className="flex justify-center" key={idx}>
-                                    <div className="w-80 bg-white rounded-xl overflow-hidden flex flex-col">
-                                        <div
-                                            className="h-48 bg-cover bg-center"
-                                            style={{ backgroundImage: `url(/storage/${product.image})` }}
-                                        />
-                                        <div className="p-5 flex flex-col flex-1">
-                                            <h3 className="text-xl font-semibold mb-2">{product.title}</h3>
-                                            <p className="text-gray-600 mb-4 flex-1">{product.desc}</p>
-                                            <div className="flex items-center justify-between">
-                                                <span className="text-gray-500 font-medium">Price: {product.price}</span>
-                                                <a
-                                                    href="#"
-                                                    className="bg-pink-600 text-white px-4 py-2 rounded hover:bg-pink-700 transition text-sm font-semibold flex gap-4 items-center"
-                                                >
-                                                    Tambah {" "} <ShoppingCart />
-                                                </a>
-                                            </div>
-                                        </div>
+                    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 mb-12">
+                        {products.map((product, idx) => (
+                            <div key={idx} className="bg-white rounded-xl overflow-hidden flex flex-col shadow-lg hover:shadow-xl transition-shadow duration-300">
+                                <div
+                                    className="h-48 bg-cover bg-center"
+                                    style={{ backgroundImage: `url(/storage/${product.image})` }}
+                                />
+                                <div className="p-5 flex flex-col flex-1">
+                                    <h3 className="text-xl font-semibold mb-2">{product.title}</h3>
+                                    <p className="text-gray-600 mb-4 flex-1">{product.desc}</p>
+                                    <div className="flex items-center justify-between">
+                                        <span className="text-gray-500 font-medium">Price: {product.price}</span>
+                                        <a
+                                            href="#"
+                                            className="bg-pink-600 text-white px-4 py-2 rounded hover:bg-pink-700 transition text-sm font-semibold flex gap-4 items-center"
+                                        >
+                                            Tambah {" "} <ShoppingCart />
+                                        </a>
                                     </div>
-                                </SwiperSlide>
-                            ))}
-                        </Swiper>
+                                </div>
+                            </div>
+                        ))}
                     </div>
                     <div className="grid grid-cols-1 md:grid-cols-3 gap-8" data-aos="fade-up">
                         <div className="bg-white text-center p-8 border rounded-lg shadow h-full flex flex-col items-center">
