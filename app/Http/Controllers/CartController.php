@@ -100,4 +100,24 @@ class CartController extends Controller
         $cart->load('items.product');
         return response()->json(new CartResource($cart));
     }
+
+    /**
+     * Get the count of items in the cart.
+     */
+    public function getItemsCount(Request $request): JsonResponse
+    {
+        $validated = $request->validate([
+            'fingerprint' => 'required|string',
+        ]);
+
+        $cart = Cart::where('fingerprint', $validated['fingerprint'])->first();
+        
+        if (!$cart) {
+            return response()->json(['count' => 0]);
+        }
+
+        $count = $cart->items->sum('quantity');
+        
+        return response()->json(['count' => $count]);
+    }
 }

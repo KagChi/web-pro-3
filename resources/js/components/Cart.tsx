@@ -21,6 +21,42 @@ export function Cart() {
     const [cart, setCart] = useState<Cart | null>(null);
     const [loading, setLoading] = useState(true);
 
+    const [itemCount, setItemCount] = useState(0);
+
+    useEffect(() => {
+        let intervalId: ReturnType<typeof setInterval> | null = null;
+        let isRequestInProgress = false;
+
+        const fetchItemCount = async () => {
+            if (isRequestInProgress) return;
+            
+            try {
+                isRequestInProgress = true;
+                const { getFingerprint } = useFingerprint();
+                const fingerprint = await getFingerprint();
+                const response = await fetch(`/api/cart/items/count?fingerprint=${fingerprint}`);
+                if (response.ok) {
+                    const data = await response.json();
+                    setItemCount(data.count);
+                }
+            } catch (error) {
+                console.error('Error fetching item count:', error);
+            } finally {
+                isRequestInProgress = false;
+            }
+        };
+
+        fetchItemCount();
+
+        intervalId = setInterval(fetchItemCount, 400);
+
+        return () => {
+            if (intervalId) {
+                clearInterval(intervalId);
+            }
+        };
+    }, []);
+
     useEffect(() => {
         fetchCart();
     }, [isOpen]);
@@ -103,9 +139,9 @@ export function Cart() {
             >
                 <div className="relative flex items-center justify-center w-10 h-10 rounded-xl bg-gradient-to-br from-pink-500 to-violet-500 shadow-lg group-hover:shadow-xl group-hover:scale-105 transition-all duration-300">
                     <ShoppingCart className="w-5 h-5 text-white" />
-                    {totalItems > 0 && (
+                    {itemCount > 0 && (
                         <span className="absolute -top-2 -right-2 bg-red-500 text-white text-xs font-bold rounded-full w-5 h-5 flex items-center justify-center">
-                            {new Intl.NumberFormat('id-ID').format(totalItems)}
+                            {new Intl.NumberFormat('id-ID').format(itemCount)}
                         </span>
                     )}
                 </div>
