@@ -33,10 +33,10 @@ class OrderResource extends Resource
                     ->columnSpanFull(),
                 Forms\Components\TextInput::make('total_amount')
                     ->label('Total Harga')
-                    ->numeric()
                     ->required()
                     ->disabled()
-                    ->columnSpanFull(),
+                    ->columnSpanFull()
+                    ->formatStateUsing(fn($state) => $state !== null ? 'Rp ' . number_format($state, 0, ',', '.') : null),
                 Forms\Components\TextInput::make('name')
                     ->label('Nama Pelanggan')
                     ->required()
@@ -114,15 +114,14 @@ class OrderResource extends Resource
                     ]),
             ])
             ->actions([
-                Tables\Actions\EditAction::make()->label('Edit'),
-                Tables\Actions\ViewAction::make()->label('Lihat'),
+                Tables\Actions\EditAction::make()->label('Edit')
             ])
             ->bulkActions([
                 Tables\Actions\BulkActionGroup::make([
                     Tables\Actions\DeleteBulkAction::make()->label('Hapus'),
                     Tables\Actions\BulkAction::make('mark_as_completed')
                         ->label('Tandai Selesai')
-                        ->action(fn ($records) => $records->each->update(['status' => 'completed'])),
+                        ->action(fn($records) => $records->each->update(['status' => 'completed'])),
                 ]),
             ])
             ->headerActions([]);
@@ -131,7 +130,7 @@ class OrderResource extends Resource
     public static function getRelations(): array
     {
         return [
-            //
+            OrderResource\RelationManagers\ItemsRelationManager::class,
         ];
     }
 
