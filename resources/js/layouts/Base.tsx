@@ -16,6 +16,8 @@ export function BaseLayout({ children }: PropsWithChildren) {
             setActivePage("home");
         } else if (pathname === "/products") {
             setActivePage("products");
+        } else if (pathname.startsWith("/checkout/history")) {
+            setActivePage("history");
         }
     }, []);
 
@@ -62,6 +64,18 @@ export function BaseLayout({ children }: PropsWithChildren) {
                             >
                                 <span className="relative z-10">Products</span>
                                 {activePage !== "products" && (
+                                    <div className="absolute inset-0 bg-gradient-to-r from-pink-500 via-purple-500 to-violet-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
+                                )}
+                            </a>
+                            <a
+                                className={`relative px-6 py-3 rounded-xl font-semibold transition-all duration-500 group overflow-hidden ${activePage === "products"
+                                        ? "bg-gradient-to-r from-pink-500 via-purple-500 to-violet-500 text-white shadow-xl shadow-pink-500/25"
+                                        : "text-gray-700 hover:text-white hover:shadow-lg"
+                                    }`}
+                                href="/checkout/history"
+                            >
+                                <span className="relative z-10">History</span>
+                                {activePage !== "history" && (
                                     <div className="absolute inset-0 bg-gradient-to-r from-pink-500 via-purple-500 to-violet-500 transform scale-x-0 group-hover:scale-x-100 transition-transform duration-500 origin-left" />
                                 )}
                             </a>
